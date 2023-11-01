@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+// Define the number of resources and processes
+#define NUM_RESOURCES 3
+#define NUM_PROCESSES 3
+
+// Define a struct to store the resource allocation and need for each process
+typedef struct {
+  int allocation[NUM_PROCESSES][NUM_RESOURCES];
+  int need[NUM_PROCESSES][NUM_RESOURCES];
+  int available[NUM_RESOURCES];
+  int finish[NUM_PROCESSES];
+} SystemState;
+
+// Function to initialize the system state
+void initializeSystemState(SystemState* state, int numResources, int numProcesses) {
+  // Get the number of available instances of each resource
+  for (int i = 0; i < numResources; i++) {
+    printf("Enter the number of available instances of resource %d: ", i + 1);
+    scanf("%d", &state->available[i]);
+  }
+
+  // Get resource allocation and need for each process
+  for (int i = 0; i < numProcesses; i++) {
+    for (int j = 0; j < numResources; j++) {
+      printf("Enter the number of instances of resource %c that process %d has allocated: ", 'A' + j, i);
+      scanf("%d", &state->allocation[i][j]);
+      printf("Enter the maximum number of instances of resource %c that process %d needs: ", 'A' + j, i);
+      scanf("%d", &state->need[i][j]);
+    }
+  }
+}
+
+// Function to check if the system is in a safe state
+int isSafeState(SystemState* state, int numResources, int numProcesses) {
+  // Initialize the finish array to false
+  for (int i = 0; i < numProcesses; i++) {
+    state->finish[i] = false;
+  }
+
+  // Rest of your isSafeState function remains unchanged.
+  // ...
+
+  return 1; // Modify this to return the result of the safety check.
+}
+
+int main() {
+  SystemState state;
+
+  // Initialize the system state
+  initializeSystemState(&state, NUM_RESOURCES, NUM_PROCESSES);
+
+  // Get the resource request from process P0
+  int requestP0[NUM_RESOURCES];
+  printf("Enter the number of instances of resource A that process P0 requests: ");
+  scanf("%d", &requestP0[0]);
+  printf("Enter the number of instances of resource B that process P0 requests: ");
+  scanf("%d", &requestP0[1]);
+  printf("Enter the number of instances of resource C that process P0 requests: ");
+  scanf("%d", &requestP0[2]);
+
+
+  // Check if the system is in a safe state after granting the request
+  if (isSafeState(&state, NUM_RESOURCES, NUM_PROCESSES)) {
+    printf("System is in a safe state\n");
+  } else {
+    printf("System is not in a safe state\n");
+  }
+
+  // Repeat the same process for P1's request, and check the safety again.
+
+  // Get the resource request from process P1
+  int requestP1[NUM_RESOURCES];
+  printf("Enter the number of instances of resource A that process P1 requests: ");
+  scanf("%d", &requestP1[0]);
+  printf("Enter the number of instances of resource B that process P1 requests: ");
+  scanf("%d", &requestP1[1]);
+  printf("Enter the number of instances of resource C that process P1 requests: ");
+  scanf("%d", &requestP1[2]);
+
+  // Simulate the resource request and check if it leads to a safe state
+  
+
+  // Check if the system is in a safe state after granting the request
+  if (isSafeState(&state, NUM_RESOURCES, NUM_PROCESSES)) {
+    printf("System is in a safe state\n");
+  } else {
+    printf("System is not in a safe state\n");
+  }
+
+  return 0;
+}
